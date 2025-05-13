@@ -8,7 +8,7 @@ WORKDIR /app
 
 COPY dock.txt .
 
-RUN pip install --no-cache-dir -r deps.txt
+RUN pip install --no-cache-dir -r dock.txt
 
 # Копіюємо код
 COPY . .
