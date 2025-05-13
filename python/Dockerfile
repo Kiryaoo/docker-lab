@@ -6,12 +6,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-COPY dock.txt .
+COPY . .
 
 RUN pip install --no-cache-dir -r dock.txt
-
-# Копіюємо код
-COPY . .
 
 EXPOSE 8080
 
