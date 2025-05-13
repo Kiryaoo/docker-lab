@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-COPY deps.txt .
+COPY dock.txt .
 
 RUN pip install --no-cache-dir -r deps.txt
 
