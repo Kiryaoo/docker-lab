@@ -1,16 +1,21 @@
-FROM golang:1.22
+FROM golang:1.22 AS builder
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY go.mod .
-COPY go.sum .
-
-RUN go mod tidy && go mod verify
+COPY go.mod go.sum ./
+RUN go mod download && go mod verify
 
 COPY . .
 
-RUN go build -o fizzbuzz .
+RUN CGO_ENABLED=0 GOOS=linux go build -o fizzbuzz .
+
+FROM scratch
+
+WORKDIR /app
+
+COPY --from=builder /app/fizzbuzz /fizzbuzz
+COPY --from=builder /app/templates /templates
 
 EXPOSE 8080
 
-ENTRYPOINT ["./fizzbuzz", "serve"]
+ENTRYPOINT ["/fizzbuzz", "serve"]
