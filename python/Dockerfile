@@ -2,12 +2,13 @@ FROM python:3.10-alpine
 
 WORKDIR /app
 
-
-COPY dock.txt .
-
-RUN pip install --no-cache-dir --only-binary=:all: -r dock.txt
+RUN python -m venv ./.venv
 
 COPY . .
+
+RUN pip install --no-cache-dir -r dock.txt
+
+COPY dock.txt .
 
 EXPOSE 8080
 
